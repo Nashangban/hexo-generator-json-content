@@ -19,11 +19,12 @@ function hexo_generator_json_content(site) {
         url: hexo.config.url,
       }
     };
-  
+
   if (pages)
     json.pages = site.pages.map(function (page) {
       return {
         title: page.title,
+        display_title: page.display_title,
         slug: page.slug,
         date: page.date,
         updated: page.updated,
@@ -37,13 +38,14 @@ function hexo_generator_json_content(site) {
         content: pages.content ? page.content : null
       };
     });
-  
+
   if (posts)
     json.posts = site.posts.sort('-date').filter(function (post) {
       return post.published;
     }).map(function (post) {
       return {
         title: post.title,
+        display_title: post.display_title,
         slug: post.slug,
         date: post.date,
         updated: post.updated,
@@ -71,7 +73,7 @@ function hexo_generator_json_content(site) {
         })
       };
     });
-  
+
   return {
     path: 'content.json',
     data: JSON.stringify(json)
